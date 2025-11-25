@@ -65,6 +65,7 @@ params = {
     }
 }
 
+
 def evaluate(test,pred):
     r2 = r2_score(test,pred)
     mae = mean_absolute_error(test,pred)
@@ -91,24 +92,30 @@ class ModelTrainer:
             train_array = pd.read_pickle(self.config.train_pkl_path)
             test_array = pd.read_pickle(self.config.test_pkl_path)
 
+            # Debug: Check shapes
+            logger.info(f"Train array shape: {train_array.shape}")
+            logger.info(f"Test array shape: {test_array.shape}")
+
             X_train = train_array[:,:-1]
             y_train = train_array[:,-1]
 
             X_test = test_array[:,:-1]
             y_test = test_array[:,-1]
 
+            logger.info(f"X_train shape: {X_train.shape}, y_train shape: {y_train.shape}")
+            logger.info(f"X_test shape: {X_test.shape}, y_test shape: {y_test.shape}")
+
             best_model_name = None
             best_model_score = -np.inf
             best_model = None
 
-
             for model_name, model in models.items():
+                logger.info(f"Training {model_name}...")
 
                 if model_name in params:
                     model_params = params[model_name]
                 else:
                     model_params = {}
-
 
                 grid_search = GridSearchCV(estimator=model, param_grid=model_params, cv=5, scoring='r2', verbose=3, n_jobs=-1)
                 grid_search.fit(X_train, y_train)
@@ -116,14 +123,14 @@ class ModelTrainer:
                 y_pred = grid_search.predict(X_test)
                 r2, mae, rmse = evaluate(y_test, y_pred)
 
-                logger.info(f"{model_name} -- R2: {r2}, MAE: {mae}, RMSE: {rmse}")
+                logger.info(f"{model_name} -- R2: {r2:.4f}, MAE: {mae:.4f}, RMSE: {rmse:.4f}")
 
                 if r2 > best_model_score:
                     best_model_score = r2
                     best_model_name = model_name
                     best_model = grid_search
 
-            logger.info(f"Best model found: {best_model_name} with R2 score: {best_model_score}")
+            logger.info(f"Best model found: {best_model_name} with R2 score: {best_model_score:.4f}")
 
             save_object(self.config.trained_model_path, best_model)
             logger.info(f"Trained model saved at {self.config.trained_model_path}")
