@@ -3,8 +3,8 @@
 This project demonstrates an **End-to-End Machine Learning** solution designed to predict **medical insurance charges** based on user-provided health and demographic factors.
 
 <p align="center">
-    <img src="https://github.com/user-attachments/assets/3a3e4e5e-c2b2-4b7b-88f7-16cba88ea94f" alt="Insurance Prediction Main UI" width="300" style="margin-right: 15px;">
-    <img src="https://github.com/user-attachments/assets/ccb86290-f1ef-4cfe-b9c4-98bc2e35a1e8" alt="Insurance Prediction Result" width="300">
+    <img src="https://github.com/user-attachments/assets/3a3e4e5e-c2b2-4b7b-88f7-16cba88ea94f" alt="Insurance Prediction Main UI" width="350" style="margin-right: 15px;">
+    <img src="https://github.com/user-attachments/assets/ccb86290-f1ef-4cfe-b9c4-98bc2e35a1e8" alt="Insurance Prediction Result" width="350">
 </p>
 
 
