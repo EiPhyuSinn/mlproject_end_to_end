@@ -9,6 +9,7 @@ setup(
                       "seaborn", 
                       "matplotlib",
                       "catboost",
-                      "xgboost"
+                      "xgboost",
+                      "flask"
                       ]
 )
